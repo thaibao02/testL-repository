@@ -64,13 +64,13 @@ export default function App() {
     {/* //drawer layout android
     <MyDrawer/> */}
 
-    {/* //Navigation
+     {/* //Navigation
     <NavigationContainer>
       <Root.Navigator initialRouteName="Screen1">
         <Root.Screen name = "Screen1" component={Screen1}/>
         <Root.Screen name = "Screen2" component={Screen2}/>
       </Root.Navigator>
-    </NavigationContainer> */}
+    </NavigationContainer>  */}
 
     <GestureHandlerRootView >
     <View style = {styles.container}>
