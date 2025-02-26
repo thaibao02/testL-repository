@@ -4,7 +4,7 @@ import { Button, View, StyleSheet, Text, TextInput } from "react-native";
 import { useState } from "react";
 
 type Screen1Props = {
-    navigation: StackNavigationProp<RootstackParamList, 'Screen1'>;
+    navigation: StackNavigationProp<RootstackParamList, 'Home'>;
 };
 
 const Screen1: React.FC<Screen1Props> = ({ navigation }) => {
@@ -14,7 +14,7 @@ const Screen1: React.FC<Screen1Props> = ({ navigation }) => {
         if (name.trim() === "") {
             alert("Please enter your name");
         } else {
-            navigation.navigate("Screen2", { name: name }); 
+            navigation.navigate("Detail", { name: name }); 
         }
     };
 

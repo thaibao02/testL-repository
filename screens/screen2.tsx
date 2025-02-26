@@ -5,15 +5,15 @@ import React from "react";
 import { Button, View, Text, StyleSheet } from "react-native";
 
 type Screen2Props = {
-    route: RouteProp<RootstackParamList, "Screen2">;
-    navigation: StackNavigationProp<RootstackParamList, "Screen2">;
+    route: RouteProp<RootstackParamList, "Detail">;
+    navigation: StackNavigationProp<RootstackParamList, "Detail">;
 };
 
 const Screen2: React.FC<Screen2Props> = ({ route, navigation }) => {
     return (
         <View style={styles.screen}>
             <Text style={styles.title}>Welcome {route.params.name}</Text>
-            <Button title="Go back" onPress={() => navigation.goBack()} />
+            <Button title="Go home" onPress={() => navigation.goBack()} />
         </View>
     );
 };

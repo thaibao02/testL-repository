@@ -10,15 +10,20 @@ import MySectionList from './components/SectionList';
 import MyDrawer from './components/MyDrawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RootstackParamList } from "./types/NavigationType";
 import Screen1 from './screens/Screen1';
 import Screen2 from './screens/screen2'
+import Home from './screens/Screen1';
+import Detail from './screens/screen2';
 import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import CheckBox from '@react-native-community/checkbox';
+import SettingScreen from './screens/SettingScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Root = createStackNavigator<RootstackParamList>();
-
+const Stack = createStackNavigator<RootstackParamList>();
+const Tab = createBottomTabNavigator<RootstackParamList>();
 export default function App() {
   const [isRemembered, setIsRemembered] = useState(false);
 
@@ -64,15 +69,9 @@ export default function App() {
     {/* //drawer layout android
     <MyDrawer/> */}
 
-     {/* //Navigation
-    <NavigationContainer>
-      <Root.Navigator initialRouteName="Screen1">
-        <Root.Screen name = "Screen1" component={Screen1}/>
-        <Root.Screen name = "Screen2" component={Screen2}/>
-      </Root.Navigator>
-    </NavigationContainer>  */}
+    
 
-    <GestureHandlerRootView >
+    {/* <GestureHandlerRootView >
     <View style = {styles.container}>
       <View>
         <Text style = {{margin : 40, justifyContent: 'center', fontWeight : 'bold',fontSize : 35}}>Wellcome back</Text> 
@@ -95,8 +94,32 @@ export default function App() {
       
       
     </View>
-    </GestureHandlerRootView>
+    </GestureHandlerRootView> */}
 
+    <NavigationContainer>
+        {/* <Root.Navigator initialRouteName="Home">
+          <Root.Screen name = "Home" component={Home}/>
+          <Root.Screen name = "Detail" component={Detail}/>
+        </Root.Navigator> */}
+        <Tab.Navigator 
+          initialRouteName='Home'
+          screenOptions={({route}) => ({
+            tabBarIcon : ({color, size}) => {
+              let iconName: 'home' | 'settings' = 'home';
+              if(route.name === 'Setting'){
+                iconName = 'settings';
+              }
+              return <Ionicons name={iconName} size={size} color={color}/>
+            },
+            tabBarActiveTintColor : 'tomato',
+            tabBarInactiveTintColor : 'gray',
+          })}
+          
+          >
+          <Tab.Screen  name="Home" component={Screen1}/>
+          <Tab.Screen name="Setting" component={SettingScreen}/>
+        </Tab.Navigator>
+      </NavigationContainer> 
     </View>
   );
 }
@@ -116,3 +139,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   }
 });
+
