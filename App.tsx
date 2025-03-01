@@ -21,12 +21,24 @@ import React, { useState } from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import SettingScreen from './screens/SettingScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator<RootstackParamList>();
 const Tab = createBottomTabNavigator<RootstackParamList>();
 export default function App() {
   const [isRemembered, setIsRemembered] = useState(false);
-
+  const Drawer = createDrawerNavigator<RootstackParamList>();
+  const screenOptions = ({route}: {route: any}) => ({
+    drawerIcon: ({color, size}: {color: string, size: number}) => {
+      let iconName: 'home' | 'settings' = 'home';
+      if(route.name === 'Setting'){
+        iconName = 'settings';
+      }
+      return <Ionicons name={iconName} size={size} color={color}/>
+    },
+    drawerActiveTintColor: 'blue',
+    drawerInactiveTintColor: 'gray',
+  });
   return (
     <View style={{flex: 1}}>
     {/* //   <Text>Open up App.tsx to start working on your app!</Text>
@@ -101,7 +113,7 @@ export default function App() {
           <Root.Screen name = "Home" component={Home}/>
           <Root.Screen name = "Detail" component={Detail}/>
         </Root.Navigator> */}
-        <Tab.Navigator 
+        {/* <Tab.Navigator 
           initialRouteName='Home'
           screenOptions={({route}) => ({
             tabBarIcon : ({color, size}) => {
@@ -118,8 +130,16 @@ export default function App() {
           >
           <Tab.Screen  name="Home" component={Screen1}/>
           <Tab.Screen name="Setting" component={SettingScreen}/>
-        </Tab.Navigator>
-      </NavigationContainer> 
+        </Tab.Navigator> */}
+        <Drawer.Navigator
+          initialRouteName='Home'
+          screenOptions={screenOptions}
+        >
+          <Drawer.Screen name="Home" component={Screen1}/>
+          <Drawer.Screen name="Setting" component={SettingScreen}/>
+        </Drawer.Navigator>
+
+    </NavigationContainer> 
     </View>
   );
 }
