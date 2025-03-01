@@ -12,6 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RootstackParamList } from "./types/NavigationType";
+import { RootTabParamList } from './types/NavigationType';
 import Screen1 from './screens/Screen1';
 import Screen2 from './screens/screen2'
 import Home from './screens/Screen1';
@@ -30,15 +31,36 @@ export default function App() {
   const Drawer = createDrawerNavigator<RootstackParamList>();
   const screenOptions = ({route}: {route: any}) => ({
     drawerIcon: ({color, size}: {color: string, size: number}) => {
-      let iconName: 'home' | 'settings' = 'home';
-      if(route.name === 'Setting'){
-        iconName = 'settings';
+      let iconName : string = '';
+      if(route.name === 'Home'){
+        iconName = 'home-outline';
+      }else if(route.name === 'Setting'){
+        iconName = 'settings-outline';
       }
       return <Ionicons name={iconName} size={size} color={color}/>
     },
     drawerActiveTintColor: 'blue',
     drawerInactiveTintColor: 'gray',
   });
+
+  const Stack = createStackNavigator<RootstackParamList>();
+  const Tab = createBottomTabNavigator<RootTabParamList>();
+  const HomeTabs = () => {
+    return (
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen name="Home" component={Screen1}/>
+        <Tab.Screen name="Setting" component={SettingScreen}/>
+      </Tab.Navigator>
+    );
+  }
+  const AppStack = () => {
+    return (
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={HomeTabs} options={{headerShown : false}}/>
+        <Stack.Screen name="Detail" component = {Detail}/>
+      </Stack.Navigator>
+    );
+  }
   return (
     <View style={{flex: 1}}>
     {/* //   <Text>Open up App.tsx to start working on your app!</Text>
@@ -131,14 +153,18 @@ export default function App() {
           <Tab.Screen  name="Home" component={Screen1}/>
           <Tab.Screen name="Setting" component={SettingScreen}/>
         </Tab.Navigator> */}
-        <Drawer.Navigator
+
+
+        // drawer navigation
+        {/* <Drawer.Navigator
           initialRouteName='Home'
           screenOptions={screenOptions}
         >
           <Drawer.Screen name="Home" component={Screen1}/>
           <Drawer.Screen name="Setting" component={SettingScreen}/>
-        </Drawer.Navigator>
+        </Drawer.Navigator> */}
 
+        <AppStack/>
     </NavigationContainer> 
     </View>
   );
